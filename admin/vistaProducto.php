@@ -1,7 +1,7 @@
 <?php
-include './DAOEmpleado.php';
-$emp = new Empleado();
-$dao = new DAOEmpleado();
+include_once 'DAOProducto.php';
+$prod = new Producto();
+$dao = new DAOProducto();
 ?>
 
 
@@ -10,7 +10,7 @@ $dao = new DAOEmpleado();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empleado</title>
+    <title>Producto</title>
     
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="sweetalert/sweetalert2.css">
@@ -22,18 +22,19 @@ $dao = new DAOEmpleado();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <link rel="shortcut icon" type="image/x-icon" href="Star_24682.ico" />
     <script src="js/jquery.js"></script>
     
 
     
     <script>
-    function cargar(cod,nom,ape,ed,sue){
-        document.formulario.txtCodigo.value=cod;
-        document.formulario.txtNombre.value=nom;
-        document.formulario.txtApellido.value=ape;
-        document.formulario.txtEdad.value=ed;
-        document.formulario.txtSueldo.value=sue;
+    function cargar(cat,idprod,nombre,descrip,imagen,precio,stock){
+        document.formulario.txtIdCategoria.value=cat;
+        document.formulario.txtIdProducto.value=idprod;
+        document.formulario.txtNomProd.value=nombre;
+        document.formulario.txtDescripcion.value=descrip;
+        document.formulario.txtImagen.value=imagen;
+        document.formulario.txtPrecio.value=precio;
+        document.formulario.txtStock.value=stock;
     }
    
     </script>
@@ -42,35 +43,58 @@ $dao = new DAOEmpleado();
 <body>
     
     <div align="center">
-        <h2 class="text-primary font-weight-bold">Control de Empleados</h2><hr>
+        <h2 class="text-primary font-weight-bold">Control de Productos</h2><hr>
         <div class="form-group" style="position: relative; margin: auto; width: 500px;">
             <form method="POST" action="#" name="formulario">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class='fas fa-key' style='font-size:16px;'></i></span>
-                    <input type="text" name="txtCodigo" value="" placeholder="Código" class="form-control"/><br>
+                    <select name="txtIdCategoria" value="" placeholder="ID Categoria" class="form-control"/><br>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    </select>
+                </div>
+                
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class='fas fa-key' style='font-size:16px;'></i></span>
+                    <input type="text" name="txtIdProducto" value= "" size="30"  placeholder= "Id Video Juego" class="form-control" readonly><br>
                 </div>
                 
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class='fas fa-user-circle' style='font-size:16px;'></i></span>
-                    <input type="text" name="txtNombre" value="" size="30" placeholder="Nombre del Empleado" class="form-control"/><br>
-                </div>
-                
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class='fas fa-user-circle' style='font-size:16px;'></i></span>
-                    <input type="text" name="txtApellido" value="" size="30" placeholder="Apellido" class="form-control"/><br>
+                    <input type="text" name="txtNomProd" value="" size="30" placeholder="Nombre Video Juego" class="form-control"/><br>
                 </div>
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class='fas fa-user-circle' style='font-size:16px;'></i></span>
-                    <input type="number" name="txtEdad" value="" size="30" placeholder="Edad" class="form-control"/><br>
+                    <input type="textarea" name="txtDescripcion" value=""  placeholder="Descripcion" class="form-control"/><br>
                 </div>
                 
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class='fas fa-upload' style='font-size:12px;'></i></span>
+                    <input type="file" name="txtImagen" value="" size="30" placeholder="Imagen" class="form-control"/><br>
+                </div>
+
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class='fas fa-money-bill-wave' style='font-size:12px;'></i></span>
-                    <input type="text" name="txtSueldo" value="" size="30" placeholder="Sueldo" class="form-control"/><br>
+                    <input type="number" name="txtPrecio" value="" size="30" placeholder="Precio" class="form-control"/><br>
+                </div>
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class='fas fa-hashtag' style='font-size:12px;'></i></span>
+                    <input type="number" name="txtStock" value="" size="30" placeholder="Stock" class="form-control"/><br>
                 </div>
                     
                 <br>
-                <input type="submit" value="Guardar" name="btnGuardar" class="btn btn-primary btn-md" />
+                <input type="submit" value="Insertar" name="btnGuardar" class="btn btn-primary btn-md" />
                 <input type="submit" value="Eliminar" name="btnEliminar" class="btn btn-danger btn-md" />
                 <input type="submit" value="Modificar" name="btnModificar" class="btn btn-success btn-md" />
             </form> 
@@ -84,27 +108,30 @@ $dao = new DAOEmpleado();
     <div align="center" style="position: relative; margin: auto; width: 800px;">    
         <?php
         if(isset($_REQUEST["btnGuardar"])){
-            $emp->setCodigo($_REQUEST["txtCodigo"]);
-            $emp->setNombreEmpleado($_REQUEST["txtNombre"]);
-            $emp->setApellido($_REQUEST["txtApellido"]);
-            $emp->setEdad($_REQUEST["txtEdad"]);
-            $emp->setSueldo($_REQUEST["txtSueldo"]);
-            $dao->insertar($emp);
+            $prod->setIdCategoria($_REQUEST["txtIdCategoria"]);
+            $prod->setIdProducto($_REQUEST["txtIdProducto"]);
+            $prod->setNombreProducto($_REQUEST["txtNomProd"]);
+            $prod->setDescripcion($_REQUEST["txtDescripcion"]);
+            $prod->setImagen($_REQUEST["txtImagen"]);
+            $prod->setPrecio($_REQUEST["txtPrecio"]);
+            $prod->setStock($_REQUEST["txtStock"]);
+            $dao->insertar($prod);
             echo $dao->getTabla();
             
         }elseif(isset($_REQUEST["btnEliminar"])){
-            $codigo = $_REQUEST["txtCodigo"];
-            $dao->eliminar($codigo);
+            $IdProducto = $_REQUEST["txtIdProducto"];
+            $dao->eliminar($IdProducto);
             echo $dao->getTabla();
             
         }elseif(isset($_REQUEST["btnModificar"])){
-            $codigo = ($_REQUEST["txtCodigo"]);
-            $emp->setCodigo($_REQUEST["txtCodigo"]);
-            $emp->setNombreEmpleado($_REQUEST["txtNombre"]);
-            $emp->setApellido($_REQUEST["txtApellido"]);
-            $emp->setEdad($_REQUEST["txtEdad"]);
-            $emp->setSueldo($_REQUEST["txtSueldo"]);
-            $dao->modificar($codigo);
+            $prod->setIdCategoria($_REQUEST["txtIdCategoria"]);
+            $prod->setIdProducto($_REQUEST["txtIdProducto"]);
+            $prod->setNombreProducto($_REQUEST["txtNomProd"]);
+            $prod->setDescripcion($_REQUEST["txtDescripcion"]);
+            $prod->setImagen($_REQUEST["txtImagen"]);
+            $prod->setPrecio($_REQUEST["txtPrecio"]);
+            $prod->setStock($_REQUEST["txtStock"]);
+            $dao->modificar($IdProducto);
             echo $dao->getTabla();
         }else{
             echo $dao->getTabla();
@@ -112,11 +139,6 @@ $dao = new DAOEmpleado();
         
         ?>
     </div>
-
-<div class="panel panel-danger">
-    <div class="panel-heading"><b> Integrantes </b></div>
-    <div class="panel-body">Delmi Abigail Díaz<br>Silvia Verónica Murillo</div>
-</div>
 
 </body>
 </html>
