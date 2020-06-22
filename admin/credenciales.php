@@ -2,5 +2,5 @@
     define('SERVIDOR','localhost');
     define('USUARIO','root');
     define('CONTRA','');
-    define('BD','empresa');
+    define('BD','venta-videojuegos');
 ?>

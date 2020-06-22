@@ -1,53 +1,70 @@
 <?php
-class Empleado{
-    private $codigo;
-    private $nombre;
-    private $apellido;
-    private $edad;
-    private $sueldo;
+include_once 'Categoria.php';
+
+class Producto{
+    private $IdCategoria;
+    private $IdProducto;
+    private $Descripcion;
+    private $Imagen;
+    private $NombreProducto;
+    private $Precio;
+    private $Stock;
     
     
-    public function Empleado(){
-        $this->codigo=0;
-        $this->nombre="";
+    public function Producto(){
+        $this->IdCategoria=0;
+        $this->Idproducto=0;
         //etc...     
        
     }
     //metodos get y set
-    public function getCodigo(){
-        return $this->codigo;
+    public function getIdCategoria(){
+        return $this->IdCategoria;
     }
-    public function setCodigo($cod){
-        $this->codigo=$cod;
-    }
-    
-    public function getNombreEmpleado(){
-        return $this->nombre;
-    }
-    public function setNombreEmpleado($nom){
-        $this->nombre=$nom;
+    public function setIdCategoria($cat){
+        $this->categoria=$cat;
     }
     
-    public function getApellido(){
-        return $this->apellido;
+    public function getIdProducto(){
+        return $this->IdProducto;
     }
-    public function setApellido($ape){
-        $this->apellido=$ape;
-    }
-    
-    public function getEdad(){
-    return $this->edad;
-    }
-    public function setEdad($edad){
-        $this->edad=$edad;
+    public function setIdProducto($idprod){
+        $this->IdProducto=$idprod;
     }
     
-    public function getSueldo(){
-    return $this->sueldo;
+    public function getDescripcion(){
+        return $this->Descripcion;
     }
-    public function setSueldo($sueldo){
-        $this->sueldo=$sueldo;
+    public function setDescripcion($descrip){
+        $this->Descripcion=$descrip;
     }
+    
+    public function getImagen(){
+    return $this->Imagen;
+    }
+    public function setImagen($imagen){
+        $this->Imagen=$imagen;
+    }
+    
+    public function getNombreProducto(){
+        return $this->NombreProducto;
+        }
+        public function setNombreProducto($nombre){
+            $this->NombreProducto=$nombre;
+        }
+
+    public function getPrecio(){
+    return $this->Precio;
+    }
+    public function setPrecio($precio){
+        $this->Precio=$precio;
+    }
+    public function getStock(){
+        return $this->Stock;
+        }
+        public function setStock($stock){
+            $this->Stock=$stock;
+        }
        
     
 }
