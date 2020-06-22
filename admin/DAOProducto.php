@@ -1,8 +1,8 @@
 <?php
 include 'credenciales.php';
-include 'Empleado.php';
+include 'Producto.php';
 
-class DAOEmpleado{
+class DAOProducto{
     private  $con;
     
     public function __construct() {
@@ -19,42 +19,49 @@ class DAOEmpleado{
         $this->con->close();
     }
     public function getTabla(){
-        $sql = "select * from Empleado;";
+        $sql = "select * from productov;";
         $this->conectar();
         $res = $this->con->query($sql);
         $this->desconectar();
         //ahora crearemos una tabla con bootstrap
         //los enlaces a los css y js estarán en las respectivas vistas
-        $tabla = "<table class='table'>"
-                ."<thead class='thead-dark'>";
+        $tabla = "<div class='container-fluid'>"
+                ."<div class='row'>"
+                ."<div class='col-xs-12'>"
+                ."<table class='table table-bordered table-dark'>"
+                ."<thead'>";
         
         $tabla.="<tr>"
-                    . "<th>CODIGO</th>"
+                    . "<th>Id CATEGORIA</th>"
+                    . "<th>Id PRODUCTO</th>"
                     . "<th>NOMBRE</th>"
-                    . "<th>APELLIDO</th>"
-                    . "<th>EDAD</th>"
-                    . "<th>SUELDO</th>"
-                    . "<th>ACCION</th>"
+                    . "<th>IMAGEN</th>"
+                    . "<th>DESCRIPCIÓN</th>"
+                    . "<th>PRECIO</th>"
+                    . "<th>STOCK</th>"
                 . "</tr></thead><tbody>";
         $var = "<button type='button' name='btnSelect' class='btn btn-info btn-xs'>Select</button>";
+       
         while($fila = mysqli_fetch_assoc($res)){
           $tabla.="<tr>"
-                        ."<td>".$fila["codigo"]."</td>"
-                        ."<td>".$fila["nombre"]."</td>"
-                        ."<td>".$fila["apellido"]."</td>"
-                        ."<td>".$fila["edad"]."</td>"
-                        ."<td> $".$fila["sueldo"]."</td>"
-                        ."<td>"."<a href=\"javascript:cargar('".$fila["codigo"]."','".$fila["nombre"]."','".$fila["apellido"]."','".$fila["edad"]."','".$fila["sueldo"]."')\">". $var."</a></td>"
+                        ."<td>".$fila["IdCategoria"]."</td>"
+                        ."<td>".$fila["IdProducto"]."</td>"
+                        ."<td>".$fila["NombreProducto"]."</td>"
+                        ."<td>".$fila["Imagen"]."</td>"
+                        ."<td>".$fila["Descripcion"]."</td>"
+                        ."<td> $".$fila["Precio"]."</td>"
+                        ."<td>".$fila["Stock"]."</td>"
+                        ."<td>"."<a href=\"javascript:cargar('".$fila["IdCategoria"]."','".$fila["IdProducto"]."','".$fila["Descripcion"]."','".$fila["Imagen"]."','".$fila["NombreProducto"]."','".$fila["Precio"]."','".$fila["Stock"]."')\">". $var."</a></td>"
                   . "</tr>";  
         }
-        $tabla.="</tbody></table>";
+        $tabla.="</tbody></div></div></div></table>";
         $res->close();
         return $tabla;
     }
     public function insertar($obj){
-        $emp = new Empleado();
-        $emp = $obj;
-        $sql="insert into Empleado value(".$emp->getCodigo().",'".$emp->getNombreEmpleado()."','".$emp->getApellido()."', ".$emp->getEdad().", ".$emp->getSueldo().")";
+        $prod = new Producto();
+        $prod = $obj;
+        $sql="insert into productov value(".$prod->getIdCategoria().",'".$prod->getIdProducto()."','".$prod->getDescripcion()."', ".$prod->getImagen().", ".$prod->getNombreProducto().", ".$prod->getPrecio().", ".$prod->getStock().")";
         $this->conectar();
         if($this->con->query($sql)){
             //aplicamos cuadros de mensaje sweetalert
@@ -65,8 +72,8 @@ class DAOEmpleado{
         $this->desconectar();
  
     }
-    public function eliminar($codigo){
-        $sql="delete from Empleado where codigo=$codigo";
+    public function eliminar($IdProducto){
+        $sql="delete from productov where IdProducto=$IdProducto";
         $this->conectar();
         if($this->con->query($sql)){
             //aplicamos cuadros de mensaje sweetalert
@@ -77,13 +84,15 @@ class DAOEmpleado{
         $this->desconectar();
  
     }
-    public function modificar($codigo){
-      $nombre       = ($_REQUEST["txtNombre"]);
-      $apellido     = ($_REQUEST["txtApellido"]);
-      $edad         = ($_REQUEST["txtEdad"]);
-      $sueldo       = ($_REQUEST["txtSueldo"]);
+    public function modificar($IdProducto){
+      $IdCategoria          = ($_REQUEST["txtIdCategoria"]);
+      $NombreProducto       = ($_REQUEST["txtNomProd"]);
+      $Imagen               = ($_REQUEST["txtImagen"]);
+      $Descripcion          = ($_REQUEST["txtDescripcion"]);
+      $Precio               = ($_REQUEST["txtPrecio"]);
+      $Stock                = ($_REQUEST["txtStock"]);
         
-        $sql="update  Empleado set nombre = '".$nombre."', apellido = '".$apellido."', edad = '".$edad ."', sueldo = '".$sueldo."' where codigo = '{$_REQUEST["txtCodigo"]}';";
+        $sql="update  productov set IdCategoria = '".$IdCategoria."', NombreProducto  = '".$NombreProducto ."' ,Imagen = '".$Imagen ."', Descripcion = '".$Descripcion."',  Precio   = '".$Precio  ."', Stock  = '".$Stock ."' where codigo = '{$_REQUEST["txtIdProducto"]}';";
         $this->conectar();
         if($this->con->query($sql)){
             //aplicamos cuadros de mensaje sweetalert
