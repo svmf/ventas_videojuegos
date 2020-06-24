@@ -5,7 +5,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Login con  PHP - Bootstrap 4</title>
+        <title>Iniciar Sesión</title>
 
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="estilos.css">
@@ -14,7 +14,7 @@
     
     <body>
      <div id="login">   
-         <h3 class="text-center text-white display-4">Login con PHP</h3>         
+         <h3 class="text-center text-white display-4">Iniciar Sesión</h3>         
          <div class="container">
              <div id="login-row" class="row justify-content-center align-items-center">
                  <div id="login-column" class="col-md-6">
